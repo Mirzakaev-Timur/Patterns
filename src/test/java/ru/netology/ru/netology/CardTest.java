@@ -24,7 +24,7 @@ public class CardTest {
     }
 
     @Test
-    void checkForValidValues() {
+    void shouldTestCard() {
         String planDate = Generator.generateDate(3);
         $("[data-test-id='city'] input").val(user.getCity());
         $("[class='menu-item__control']").click();
@@ -39,7 +39,7 @@ public class CardTest {
 
     }
     @Test
-    void checksTheRecordConfirmationNotificationForANewDate() {
+    void shouldNewDate() {
         String planningDate = Generator.generateDate(3);
         String planningDateLast = Generator.generateDate(5);
 
@@ -52,13 +52,13 @@ public class CardTest {
         $("[data-test-id='phone'] .input__control").val(user.getPhone());
         $("[data-test-id='agreement']").click();
         $(".button").click();
-        $("[data-test-id='success-notification'] .notification__content").shouldBe(text("Встреча успешно запланирована на " + planningDate), Duration.ofSeconds(1));
+        $("[data-test-id='success-notification'] .notification__content").shouldBe(text("Встреча успешно запланирована на " + planningDate), Duration.ofSeconds(10));
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.BACK_SPACE);
         $("[data-test-id=date] input").sendKeys(planningDateLast);
         $(".button").click();
         $("[data-test-id='replan-notification'] .notification__content").shouldHave(Condition.text("У вас уже запланирована встреча на другую дату. Перепланировать?"));
         $("[data-test-id='replan-notification'] .button__text").click();
-        $("[data-test-id='success-notification'] .notification__content").shouldBe(text("Встреча успешно запланирована на " + planningDateLast), Duration.ofSeconds(2));
+        $("[data-test-id='success-notification'] .notification__content").shouldBe(text("Встреча успешно запланирована на " + planningDateLast), Duration.ofSeconds(10));
 
     }
 }
